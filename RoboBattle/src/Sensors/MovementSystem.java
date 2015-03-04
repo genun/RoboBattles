@@ -3,12 +3,7 @@ package Sensors;
 import Interfaces.MovementInterface;
 import SensorWrapperInterface.MovementLejosInterface;
 
-//TODO fix back vs forward motors
-/*
- * BACKWARDS IS FORWARDS 
- * FORWARDS IS BACKWARDS
- * RYAN MESSED UP BUT MANAGED TO FINISH WHEELIES
- */
+//TODO fiddle with movement system numbers
 public class MovementSystem implements MovementInterface{
 	private MovementLejosInterface motor1;
 	private MovementLejosInterface motor2;

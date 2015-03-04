@@ -4,6 +4,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import SensorWrapperInterface.LightSensorInterface;
 
+//TODO fiddle with numbers for light sensitivity
 public class MyLight implements LightSensorInterface{
 	private LightSensor sensor;
 	private static final int SENSOR_HIGH = 500;

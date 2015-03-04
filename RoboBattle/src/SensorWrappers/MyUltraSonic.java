@@ -4,9 +4,12 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import SensorWrapperInterface.UltraSonicInterface;
 
+//TODO test ultrasonic min distance number
+//TODO test ultrasonic max distance number
 public class MyUltraSonic implements UltraSonicInterface{
 	public UltrasonicSensor sense;
-	private static final int MAX_DISTANCE = 60;
+	private static final int MIN_DISTANCE = 5;
+	private static final int MAX_DISTANCE = 70;
 	public MyUltraSonic(SensorPort port) {
 		sense = new UltrasonicSensor(port);
 		sense.continuous();
@@ -20,7 +23,7 @@ public class MyUltraSonic implements UltraSonicInterface{
 	public boolean GetDistance() {
 		boolean inRange = false;
 		this.ping();
-		if(sense.getDistance() < MAX_DISTANCE){
+		if(sense.getDistance() < MAX_DISTANCE && sense.getDistance() > MIN_DISTANCE){
 			inRange = true;
 		}
 		return inRange;

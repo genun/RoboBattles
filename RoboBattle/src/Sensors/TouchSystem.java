@@ -3,6 +3,7 @@ package Sensors;
 import Interfaces.TouchInterface;
 import SensorWrapperInterface.TouchSensorInterface;
 
+//TODO test touch system
 public class TouchSystem implements TouchInterface{
 	private TouchSensorInterface touchSensor1;
 	private TouchSensorInterface touchSensor2;

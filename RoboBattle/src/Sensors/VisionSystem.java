@@ -3,11 +3,7 @@ package Sensors;
 import Interfaces.VisionInterface;
 import SensorWrapperInterface.UltraSonicInterface;
 
-/*
- * DetectCan:
- * if Ultrasonic sensor detects a can notify that a can was found,
- * otherwise if Ultrasonic sensor does not detect a can notify that a can was not found
- */
+//TODO test ultrasonic system
 public class VisionSystem implements VisionInterface{
 	UltraSonicInterface sense;
 	public VisionSystem(UltraSonicInterface sonicSense){

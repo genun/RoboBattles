@@ -3,6 +3,8 @@ package Sensors;
 import Interfaces.LightInterface;
 import SensorWrapperInterface.LightSensorInterface;
 
+
+//TODO fiddle with light system numbers
 public class LightSystem extends Thread implements LightInterface{
 	private static final int BLACK_LINE = 97;
 	private LightSensorInterface lightSensor;
