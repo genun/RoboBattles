@@ -6,6 +6,7 @@ import java.util.List;
 import Interfaces.MovementInterface;
 import Interfaces.VisionInterface;
 
+//TODO put light sensor in searching system and have it search for light.
 //TODO finish Searching System
 public class SearchingSystem extends Thread{
 	private VisionInterface vision;

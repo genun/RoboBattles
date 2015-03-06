@@ -12,11 +12,7 @@ public class TouchSystem implements TouchInterface{
 		touchSensor2 = touch2;
 	}
 	
-	public boolean DetectFrontTouch() {
-		return touchSensor1.isTouched();
-	}
-	public boolean DetectBackTouch() {
-		// TODO Auto-generated method stub
-		return touchSensor2.isTouched();
+	public boolean DetectTouch() {
+		return touchSensor1.isTouched()|| touchSensor2.isTouched();
 	}
 }

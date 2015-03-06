@@ -3,6 +3,7 @@ package Sensors;
 import Interfaces.MovementInterface;
 import SensorWrapperInterface.MovementLejosInterface;
 
+//TODO put a switch direction function
 //TODO fiddle with movement system numbers
 public class MovementSystem implements MovementInterface{
 	private MovementLejosInterface motor1;

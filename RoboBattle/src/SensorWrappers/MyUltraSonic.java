@@ -8,7 +8,7 @@ import SensorWrapperInterface.UltraSonicInterface;
 //TODO test ultrasonic max distance number
 public class MyUltraSonic implements UltraSonicInterface{
 	public UltrasonicSensor sense;
-	private static final int MIN_DISTANCE = 5;
+	private static final int MIN_DISTANCE = 0;
 	private static final int MAX_DISTANCE = 70;
 	public MyUltraSonic(SensorPort port) {
 		sense = new UltrasonicSensor(port);
