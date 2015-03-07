@@ -3,6 +3,7 @@ package Systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.LightInterface;
 import Interfaces.MovementInterface;
 import Interfaces.VisionInterface;
 
@@ -13,9 +14,11 @@ public class SearchingSystem extends Thread{
 	private MovementInterface move;
 	private List<SearchingListener> listeners = new ArrayList<SearchingListener>();
 	boolean paused = false;
-	public SearchingSystem(VisionInterface vision, MovementInterface move) throws NullPointerException{
+	private LightInterface light;
+	public SearchingSystem(VisionInterface vision, MovementInterface move, LightInterface light) throws NullPointerException{
 		this.vision = vision;
 		this.move = move;
+		this.light = light;
 	}
 	
 	public void SearchForEnemy(){
@@ -25,7 +28,7 @@ public class SearchingSystem extends Thread{
 		}
 	}
 
-	private void pause() {
+	public void pause() {
 		paused = true;
 	}
 	
@@ -40,7 +43,7 @@ public class SearchingSystem extends Thread{
 	}
 	
 	public void run(){
-		move.Rotate();
+		move.RotateLeft();
 		while(true){
 			if(paused) Thread.yield();
 			else SearchForEnemy();

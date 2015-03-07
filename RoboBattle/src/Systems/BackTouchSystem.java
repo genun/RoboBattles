@@ -29,5 +29,6 @@ public class BackTouchSystem extends Thread{
 
 	public interface BackTouchListener {
 		public void NotifyBackTouchFound();
+		public void NotifyBackTouchReleased();
 	}
 }

@@ -59,6 +59,6 @@ public class AttackSystem extends Thread{
 	}
 
 	public interface AttackSystemListener {
-		public void NotifyBoundsFound();
+//		public void NotifyBoundsFound();
 	}
 }

@@ -2,8 +2,10 @@ package States;
 
 //TODO finish states
 public enum State {
-	FOUDN_ENEMY,
+	FOUND_ENEMY,
 	ATTACKING,
 	SEARCHING,
-	LIGHT_FOUND
+	LIGHT_FOUND,
+	BACK_TOUCHED,
+	START_SEARCH
 }
