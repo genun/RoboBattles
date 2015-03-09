@@ -20,12 +20,12 @@ public class SearchingSystem extends Thread{
 	}
 	
 	public void SearchForEnemy(){
+		if(light.InBounds()){
+			move.ReveseDirection();
+		}
 		if(vision.DetectRobot()){
 			myNotifyDetected();
 			this.pause();
-		}
-		else if(light.InBounds()){
-			move.ReveseDirection();
 		}
 	}
 

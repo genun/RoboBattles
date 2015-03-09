@@ -50,6 +50,7 @@ public class RoboBattle extends Thread{
 		while(true){
 			switch(currentState){
 			case START_SEARCH:
+				currentState = State.SEARCHING;
 				attack.pause();
 				search.resumeMyThread();
 				break;
