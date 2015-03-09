@@ -6,7 +6,7 @@ import SensorWrapperInterface.LightSensorInterface;
 
 //TODO fiddle with light system numbers
 public class LightSystem extends Thread implements LightInterface{
-	private static final int BLACK_LINE = 97;
+	private static final int WHITE_LINE = 100;
 	private LightSensorInterface lightSensor;
 	public LightSystem(LightSensorInterface light){
 		lightSensor = light;
@@ -14,6 +14,6 @@ public class LightSystem extends Thread implements LightInterface{
 	}
 	public boolean InBounds(){
 		int value = lightSensor.readValue();
-		return value > BLACK_LINE;
+		return value < WHITE_LINE;
 	}
 }

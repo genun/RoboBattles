@@ -1,11 +1,15 @@
 package Drivers;
 
+import lejos.nxt.MotorPort;
 import lejos.nxt.SensorPort;
 import Interfaces.MovementInterface;
+import SensorWrapperInterface.MovementLejosInterface;
 import SensorWrappers.MyLight;
+import SensorWrappers.MyMovement;
 import SensorWrappers.MyTouch;
 import SensorWrappers.MyUltraSonic;
 import Sensors.LightSystem;
+import Sensors.MovementSystem;
 import Sensors.TouchSystem;
 import Sensors.VisionSystem;
 import States.State;
@@ -26,22 +30,28 @@ public class RoboBattle extends Thread{
 	private LightSystem light;
 	private VisionSystem vision;
 	
-	public RoboBattle(MovementInterface move){
-		this.move = move;
-		light = new LightSystem(new MyLight(SensorPort.S1));
-		vision = new VisionSystem(new MyUltraSonic(SensorPort.S2));
+	public RoboBattle(){
+		MovementLejosInterface m1 = new MyMovement(MotorPort.A);
+		MovementLejosInterface m2 = new MyMovement(MotorPort.B);
+
+		this.move = new MovementSystem(m1, m2);
+		light = new LightSystem(new MyLight(SensorPort.S4));
+		vision = new VisionSystem(new MyUltraSonic(SensorPort.S3));
 		
 		//Move, light
 		attack = new AttackSystem(move, light);
 		attack.pause();
 		attack.start();
+		attack.addListener(attackListen);
 		
 		//Vision, move, light
 		search = new SearchingSystem(vision, move, light);
 		search.start();
+		search.addListener(searchListen);
 		
-		back = new BackTouchSystem(new TouchSystem(new MyTouch(SensorPort.S3), new MyTouch(SensorPort.S4)), light);
+		back = new BackTouchSystem(new TouchSystem(new MyTouch(SensorPort.S1), new MyTouch(SensorPort.S2)), light);
 		back.start();
+		back.addListener(backListen);
 		
 		currentState = State.SEARCHING;
 	}
@@ -63,21 +73,35 @@ public class RoboBattle extends Thread{
 				break;
 			case ATTACKING:
 				break;
+			case BOUNDS_FOUND:
+				move.Backup();
+				double timeAttackBounds = System.currentTimeMillis();
+				while((timeAttackBounds + 700) > System.currentTimeMillis()){ }
+				currentState = State.START_SEARCH;
+				break;
+			case BACK_BOUNDS_FOUND:
+				move.MoveForward();
+				double timeBackBounds = System.currentTimeMillis();
+				while((timeBackBounds + 700) < System.currentTimeMillis()){ }
+				currentState = State.START_SEARCH;
+				break;
+			case BACK_TOUCH:
+				break;
 			}
 		}
 	}
 
 	public AttackSystemListener attackListen = new AttackSystemListener(){
-
 		@Override
 		public void NotifyBoundsFound() {
-			currentState = State.START_SEARCH;
+			currentState = State.BOUNDS_FOUND;
 		}
 	};
 	
 	public BackTouchListener backListen = new BackTouchListener(){
 		@Override
 		public void NotifyBackTouchFound() {
+			currentState = State.BACK_TOUCH;
 			move.Backup();
 		}
 		

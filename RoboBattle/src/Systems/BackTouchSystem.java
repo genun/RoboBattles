@@ -10,6 +10,7 @@ public class BackTouchSystem extends Thread{
 	private TouchSystem touch;
 	private LightSystem light;
 	private ArrayList<BackTouchListener> listeners = new ArrayList<BackTouchListener>();
+	
 	public BackTouchSystem(TouchSystem touch, LightSystem light){
 		this.touch = touch;
 		this.light = light;
@@ -21,7 +22,7 @@ public class BackTouchSystem extends Thread{
 				notifyTouch();
 				backTouched = true;
 			}
-			else if(backTouched){
+			else if(!touch.DetectTouch() && backTouched){
 				notifyBackReleased();
 				backTouched = false;
 			}

@@ -6,6 +6,7 @@ import java.util.List;
 import Interfaces.LightInterface;
 import Interfaces.MovementInterface;
 import Interfaces.VisionInterface;
+import Systems.SearchingSystem.SearchingListener;
 
 public class SearchingSystem extends Thread{
 	private VisionInterface vision;
@@ -20,8 +21,12 @@ public class SearchingSystem extends Thread{
 	}
 	
 	public void SearchForEnemy(){
-		if(light.InBounds()){
+		if(!light.InBounds()){
 			move.ReveseDirection();
+			double timeBackBounds = System.currentTimeMillis();
+			while((timeBackBounds + 300) > System.currentTimeMillis()){ 
+				System.out.println("Waiting....");
+			}
 		}
 		if(vision.DetectRobot()){
 			myNotifyDetected();
@@ -54,5 +59,9 @@ public class SearchingSystem extends Thread{
 	
 	public interface SearchingListener{
 		public void NotifyDetected();
+	}
+
+	public void addListener(SearchingListener searchListen) {
+		listeners.add(searchListen);
 	}
 }

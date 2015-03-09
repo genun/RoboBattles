@@ -8,9 +8,7 @@ import Sensors.MovementSystem;
 
 public class driver {
 	public static void main(String args[]){
-		MovementLejosInterface m1 = new MyMovement(MotorPort.A);
-		MovementLejosInterface m2 = new MyMovement(MotorPort.A);
-		RoboBattle battle = new RoboBattle(new MovementSystem(m1, m2));
+		RoboBattle battle = new RoboBattle();
 		battle.run();
 	}
 }

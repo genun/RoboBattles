@@ -20,9 +20,11 @@ public class AttackSystem extends Thread{
 	
 	public void DemolishEnemy(){
 		move.MoveForward();
+		System.out.println("Move forward");
 		while(light.InBounds()){
 			//Can't think of anything other than CHARGE!
 		}
+		System.out.println("Backup");
 		move.Backup();
 		this.NotifyBoundsFound();
 	}
@@ -37,9 +39,9 @@ public class AttackSystem extends Thread{
 	@Override
 	public void run() {
 		while (true) {
-			if (paused)
-				Thread.yield();
+			if (paused) Thread.yield();
 			else {
+				System.out.println("Attacking starting");
 				paused = true;
 				DemolishEnemy();
 			}
