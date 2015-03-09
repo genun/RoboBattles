@@ -2,14 +2,17 @@ package Systems;
 
 import java.util.ArrayList;
 
+import Sensors.LightSystem;
 import Sensors.TouchSystem;
 
 public class BackTouchSystem extends Thread{
 	private boolean backTouched = false;
 	private TouchSystem touch;
+	private LightSystem light;
 	private ArrayList<BackTouchListener> listeners = new ArrayList<BackTouchListener>();
-	public BackTouchSystem(TouchSystem touch){
+	public BackTouchSystem(TouchSystem touch, LightSystem light){
 		this.touch = touch;
+		this.light = light;
 	}
 	
 	public void run(){
@@ -18,7 +21,11 @@ public class BackTouchSystem extends Thread{
 				notifyTouch();
 				backTouched = true;
 			}
-			else if(backTouched == true){
+			else if(backTouched){
+				notifyBackReleased();
+				backTouched = false;
+			}
+			else if(backTouched && light.InBounds()){
 				notifyBackReleased();
 				backTouched = false;
 			}

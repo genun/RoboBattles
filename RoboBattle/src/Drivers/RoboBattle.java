@@ -40,7 +40,7 @@ public class RoboBattle extends Thread{
 		search = new SearchingSystem(vision, move, light);
 		search.start();
 		
-		back = new BackTouchSystem(new TouchSystem(new MyTouch(SensorPort.S3), new MyTouch(SensorPort.S4)));
+		back = new BackTouchSystem(new TouchSystem(new MyTouch(SensorPort.S3), new MyTouch(SensorPort.S4)), light);
 		back.start();
 		
 		currentState = State.SEARCHING;
