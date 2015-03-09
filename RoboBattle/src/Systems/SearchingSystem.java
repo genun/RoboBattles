@@ -7,8 +7,6 @@ import Interfaces.LightInterface;
 import Interfaces.MovementInterface;
 import Interfaces.VisionInterface;
 
-//TODO put light sensor in searching system and have it search for light.
-//TODO finish Searching System
 public class SearchingSystem extends Thread{
 	private VisionInterface vision;
 	private MovementInterface move;
@@ -26,6 +24,9 @@ public class SearchingSystem extends Thread{
 			myNotifyDetected();
 			this.pause();
 		}
+		else if(light.InBounds()){
+			move.ReveseDirection();
+		}
 	}
 
 	public void pause() {
@@ -33,6 +34,7 @@ public class SearchingSystem extends Thread{
 	}
 	
 	public void resumeMyThread(){
+		move.RotateLeft();
 		paused = false;
 	}
 

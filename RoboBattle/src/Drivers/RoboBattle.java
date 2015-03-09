@@ -1,33 +1,49 @@
 package Drivers;
 
+import lejos.nxt.SensorPort;
 import Interfaces.MovementInterface;
+import SensorWrappers.MyLight;
+import SensorWrappers.MyTouch;
+import SensorWrappers.MyUltraSonic;
+import Sensors.LightSystem;
+import Sensors.TouchSystem;
+import Sensors.VisionSystem;
 import States.State;
 import Systems.AttackSystem;
 import Systems.AttackSystem.AttackSystemListener;
+import Systems.BackTouchSystem;
 import Systems.BackTouchSystem.BackTouchListener;
-import Systems.LightDetectionSystem.LightDetectionListener;
 import Systems.SearchingSystem;
 import Systems.SearchingSystem.SearchingListener;
 
 public class RoboBattle extends Thread{
-	//TODO Manage the states and listseners
-	//TODO implement listeners
 	
 	MovementInterface move;
-	private Boolean isBackTouched;
 	private State currentState;
 	private AttackSystem attack;
 	private SearchingSystem search;
+	private BackTouchSystem back;
+	private LightSystem light;
+	private VisionSystem vision;
+	
 	public RoboBattle(MovementInterface move){
 		this.move = move;
-		isBackTouched = false;
-		currentState = State.SEARCHING;
+		light = new LightSystem(new MyLight(SensorPort.S1));
+		vision = new VisionSystem(new MyUltraSonic(SensorPort.S2));
 		
 		//Move, light
-		attack = new AttackSystem(move, null);
+		attack = new AttackSystem(move, light);
+		attack.pause();
+		attack.start();
 		
 		//Vision, move, light
-		search = new SearchingSystem(null, move, null);
+		search = new SearchingSystem(vision, move, light);
+		search.start();
+		
+		back = new BackTouchSystem(new TouchSystem(new MyTouch(SensorPort.S3), new MyTouch(SensorPort.S4)));
+		back.start();
+		
+		currentState = State.SEARCHING;
 	}
 	
 	public void run() {
@@ -46,38 +62,28 @@ public class RoboBattle extends Thread{
 				break;
 			case ATTACKING:
 				break;
-			case LIGHT_FOUND:
-				move.ReveseDirection();
-				break;
-			case BACK_TOUCHED:
-				break;
 			}
 		}
 	}
 
 	public AttackSystemListener attackListen = new AttackSystemListener(){
-//		@Override
-//		public void NotifyBoundsFound() {
-//			currentState = State.START_SEARCH;
-//		}
+
+		@Override
+		public void NotifyBoundsFound() {
+			currentState = State.START_SEARCH;
+		}
 	};
 	
 	public BackTouchListener backListen = new BackTouchListener(){
 		@Override
 		public void NotifyBackTouchFound() {
-			isBackTouched = true;
+			move.Backup();
 		}
+		
 		@Override
 		public void NotifyBackTouchReleased(){
-			isBackTouched = false;
-		}
-	};
-	
-	public LightDetectionListener lightListen = new LightDetectionListener(){
-		@Override
-		public void NotifyLightFound() {
-			move.ReveseDirection();
-			if()
+			move.Stop();
+			currentState = State.START_SEARCH;
 		}
 	};
 	

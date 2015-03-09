@@ -6,7 +6,6 @@ import java.util.List;
 import Interfaces.LightInterface;
 import Interfaces.MovementInterface;
 
-//TODO finish AttackSystem
 public class AttackSystem extends Thread{
 	private boolean paused;
 	private MovementInterface move;
@@ -19,11 +18,12 @@ public class AttackSystem extends Thread{
 		paused = true;
 	}
 	
-	//TODO might want to double check DemolishEnemy function
 	public void DemolishEnemy(){
 		move.MoveForward();
 		while(light.InBounds()){
+			//Can't think of anything other than CHARGE!
 		}
+		move.Backup();
 		this.NotifyBoundsFound();
 	}
 	
@@ -59,6 +59,6 @@ public class AttackSystem extends Thread{
 	}
 
 	public interface AttackSystemListener {
-//		public void NotifyBoundsFound();
+		public void NotifyBoundsFound();
 	}
 }
