@@ -21,13 +21,13 @@ public class SearchingSystem extends Thread{
 	}
 	
 	public void SearchForEnemy(){
-		if(!light.InBounds()){
-			move.ReveseDirection();
-			double timeBackBounds = System.currentTimeMillis();
-			while((timeBackBounds + 300) > System.currentTimeMillis()){ 
-				System.out.println("Waiting....");
-			}
-		}
+//		if(!light.InBounds()){
+//			move.ReveseDirection();
+//			double timeBackBounds = System.currentTimeMillis();
+//			while((timeBackBounds + 300) > System.currentTimeMillis()){ 
+//				System.out.println("Waiting....");
+//			}
+//		}
 		if(vision.DetectRobot()){
 			myNotifyDetected();
 			this.pause();
