@@ -23,14 +23,14 @@ public class MovementSystem implements MovementInterface{
 		currentMove = MoveState.ROTATE_LEFT;
 	}
 	public void RotateLeft(){
-//		System.out.println("Rotate");
+//		System.out.println("Rotate Left");
 		currentMove = MoveState.ROTATE_LEFT;
 		motor1.controlMotor(ROTATE_SPEED, FORWARD_MODE);
 		motor2.controlMotor(ROTATE_SPEED, BACKWARD_MODE);
 	}
 	
 	public void RotateRight(){
-//		System.out.println("Rotate");
+//		System.out.println("Rotate Right");
 		currentMove = MoveState.ROTATE_RIGHT;
 		motor1.controlMotor(ROTATE_SPEED, BACKWARD_MODE);
 		motor2.controlMotor(ROTATE_SPEED, FORWARD_MODE);

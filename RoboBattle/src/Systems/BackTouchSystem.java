@@ -22,17 +22,24 @@ public class BackTouchSystem extends Thread{
 				notifyTouch();
 				backTouched = true;
 			}
+			else if(backTouched && !light.InBounds()){
+				notifyBoundsFound();
+				backTouched = false;
+			}
 			else if(!touch.DetectTouch() && backTouched){
 				notifyBackReleased();
 				backTouched = false;
 			}
-			else if(backTouched && light.InBounds()){
-				notifyBackReleased();
-				backTouched = false;
-			}
+			else Thread.yield();
 		}
 	}
 	
+	private void notifyBoundsFound() {
+		for(BackTouchListener listen: listeners){
+			listen.NotifyBoundsFound();
+		}
+	}
+
 	private void notifyBackReleased() {
 		for(BackTouchListener listen: listeners){
 			listen.NotifyBackTouchReleased();
@@ -52,5 +59,6 @@ public class BackTouchSystem extends Thread{
 	public interface BackTouchListener {
 		public void NotifyBackTouchFound();
 		public void NotifyBackTouchReleased();
+		public void NotifyBoundsFound();
 	}
 }

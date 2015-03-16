@@ -18,23 +18,18 @@ public class AttackSystem extends Thread{
 		paused = true;
 	}
 	
-	public void DemolishEnemy(){
-		move.MoveForward();
-		System.out.println("Move forward");
-		while(light.InBounds()){
-			//Can't think of anything other than CHARGE!
-		}
-		System.out.println("Backup");
-		move.Backup();
-		this.NotifyBoundsFound();
-	}
+//	public void DemolishEnemy(){
+//		move.MoveForward();
+//		System.out.println("Move forward");
+//		System.out.println("Backup");
+//		move.Backup();
+//	}
 	
 	private void NotifyBoundsFound(){
 		for(AttackSystemListener listen: listeners){
 			listen.NotifyBoundsFound();
 		}
 	}
-	
 
 	@Override
 	public void run() {
@@ -43,7 +38,10 @@ public class AttackSystem extends Thread{
 			else {
 				System.out.println("Attacking starting");
 				paused = true;
-				DemolishEnemy();
+				while(light.InBounds()){
+					//Can't think of anything other than CHARGE!
+				}
+				this.NotifyBoundsFound();
 			}
 		}
 	}
