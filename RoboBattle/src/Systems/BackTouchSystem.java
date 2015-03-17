@@ -30,7 +30,9 @@ public class BackTouchSystem extends Thread{
 				notifyBackReleased();
 				backTouched = false;
 			}
-			else Thread.yield();
+			else {
+				Thread.yield();
+			}
 		}
 	}
 	

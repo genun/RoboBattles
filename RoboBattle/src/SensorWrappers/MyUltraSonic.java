@@ -9,7 +9,7 @@ import SensorWrapperInterface.UltraSonicInterface;
 public class MyUltraSonic implements UltraSonicInterface{
 	public UltrasonicSensor sense;
 	private static final int MIN_DISTANCE = 0;
-	private static final int MAX_DISTANCE = 77;
+	private static final int MAX_DISTANCE = 85;
 	public MyUltraSonic(SensorPort port) {
 		sense = new UltrasonicSensor(port);
 		sense.continuous();

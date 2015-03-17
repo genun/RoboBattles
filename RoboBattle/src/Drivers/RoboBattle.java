@@ -60,7 +60,6 @@ public class RoboBattle extends Thread{
 		while(true){
 			switch(currentState){
 			case START_SEARCH:
-				System.out.println("Search");
 				currentState = State.SEARCHING;
 				attack.pause();
 				search.resumeMyThread();
@@ -68,7 +67,6 @@ public class RoboBattle extends Thread{
 			case SEARCHING:
 				break;
 			case FOUND_ENEMY:
-				System.out.println("Attack");
 				currentState = State.ATTACKING;
 				search.pause();
 				attack.resumeMyThread();
@@ -77,15 +75,14 @@ public class RoboBattle extends Thread{
 			case ATTACKING:
 				break;
 			case BOUNDS_FOUND:
-				System.out.println("Bounds Found");
 				move.Backup();
 				double timeAttackBounds = System.currentTimeMillis();
-				while((timeAttackBounds + 550) > System.currentTimeMillis()){
+				while((timeAttackBounds + 650) > System.currentTimeMillis()){
 					
 				}
 				timeAttackBounds = System.currentTimeMillis();
 				boolean white = true;
-				while((timeAttackBounds + 600) > System.currentTimeMillis()){
+				while((timeAttackBounds + 300) > System.currentTimeMillis()){
 					if(light.InBounds()){
 						white = false;
 					}
